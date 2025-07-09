@@ -5,7 +5,10 @@ import '../../res/colors.dart';
 
 class BaseButton extends StatelessWidget {
   final String? title;
+  final double? titleSize;
+  final FontWeight? titleWeight;
   final BoxDecoration? decoration;
+  final Color? shadowColor;
   final GestureTapCallback? onTap;
   final Widget? child;
   final Color? backgroundColor;
@@ -24,6 +27,7 @@ class BaseButton extends StatelessWidget {
       {this.child,
         super.key,
         this.decoration,
+        this.shadowColor,
         this.onTap,
         this.backgroundColor,
         this.borderRadius,
@@ -35,6 +39,8 @@ class BaseButton extends StatelessWidget {
         this.height,
         this.wrapChild = false,
         this.title,
+        this.titleSize,
+        this.titleWeight,
         this.titleColor,
         this.isDisable = false});
 
@@ -57,6 +63,13 @@ class BaseButton extends StatelessWidget {
             color: effectiveBackgroundColor,
             border: Border.all(color: borderColor!),
             borderRadius: BorderRadius.circular(borderRadius ?? 10),
+            boxShadow: [
+              BoxShadow(
+                color: shadowColor ?? Colors.transparent,
+                blurRadius: 10,
+                offset: Offset(0, 4),
+              ),
+            ],
           ),
       child: Material(
         color: Colors.transparent,
@@ -81,8 +94,8 @@ class BaseButton extends StatelessWidget {
     if (title != null) {
       return BaseTextLabel(
         title,
-        fontWeight: FontWeight.w500,
-        fontSize: 16,
+        fontWeight: titleWeight ?? FontWeight.w500,
+        fontSize: titleSize ?? 16,
         color: isDisable? AppColors.gray : titleColor ?? AppColors.white,
         textAlign: TextAlign.center,
       );

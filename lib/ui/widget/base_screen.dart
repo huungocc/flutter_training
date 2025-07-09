@@ -20,6 +20,7 @@ class BaseScreen extends StatelessWidget {
   final Color colorTitle;
   final bool hideAppBar;
   final Color colorBackground;
+  final Widget? customBackground;
   final Color? iconBackColor;
   final bool isLightStatusBar;
   final bool resizeToAvoidBottomInset;
@@ -40,6 +41,7 @@ class BaseScreen extends StatelessWidget {
     this.hideAppBar = false,
     this.floatingButton,
     this.colorBackground = AppColors.white,
+    this.customBackground,
     this.isLightStatusBar = false,
     this.toolbarHeight,
     this.iconBackColor = AppColors.black,
@@ -59,7 +61,7 @@ class BaseScreen extends StatelessWidget {
           },
           child: Stack(
             children: [
-              Container(alignment: Alignment.topCenter, color: colorBackground, child: body),
+              Container(alignment: Alignment.topCenter, color: Colors.transparent, child: body),
             ],
           ),
         ),
@@ -71,6 +73,10 @@ class BaseScreen extends StatelessWidget {
             child: Container(
               color: colorBackground,
             )),
+        if (customBackground != null)
+        Positioned.fill(
+          child: customBackground!,
+        ),
         scaffold
       ],
     );
