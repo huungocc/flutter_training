@@ -15,6 +15,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: Routes.initScreen(),
       onGenerateRoute: Routes.generateRoute,
+      theme: ThemeData(
+        fontFamily: 'Poppins',
+      ),
     );
   }
 }

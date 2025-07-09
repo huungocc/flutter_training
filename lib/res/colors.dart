@@ -21,4 +21,7 @@ class AppColors {
   static const Color gray_border = Color(0xffd5d5d5);
 
   static const Color ff1f41bb = Color(0xff1f41bb);
+  static const Color fff1f4ff = Color(0xfff1f4ff);
+  static const Color ffececec = Color(0xffececec);
+  static const Color fff8f9ff = Color(0xfff8f9ff);
 }
