@@ -1,0 +1,4 @@
+enum SignType {
+  login,
+  register
+}
