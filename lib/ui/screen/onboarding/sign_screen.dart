@@ -159,7 +159,7 @@ class _SignScreenState extends State<SignScreen> {
                 backgroundColor: AppColors.ff1f41bb,
                 shadowColor: AppColors.ff1f41bb.withOpacity(0.5),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 40),
               Material(
                 color: Colors.transparent,
                 child: InkWell(
@@ -260,7 +260,7 @@ class _SignScreenState extends State<SignScreen> {
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 40),
               BaseButton(
                 title: 'Sign up',
                 titleSize: 20,
@@ -269,7 +269,7 @@ class _SignScreenState extends State<SignScreen> {
                 backgroundColor: AppColors.ff1f41bb,
                 shadowColor: AppColors.ff1f41bb.withOpacity(0.5),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 40),
               Material(
                 color: Colors.transparent,
                 child: InkWell(
