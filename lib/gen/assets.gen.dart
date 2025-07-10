@@ -18,6 +18,13 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_apple.svg
   SvgGenImage get icApple => const SvgGenImage('assets/icons/ic_apple.svg');
 
+  /// File path: assets/icons/ic_calendar.svg
+  SvgGenImage get icCalendar =>
+      const SvgGenImage('assets/icons/ic_calendar.svg');
+
+  /// File path: assets/icons/ic_clock.svg
+  SvgGenImage get icClock => const SvgGenImage('assets/icons/ic_clock.svg');
+
   /// File path: assets/icons/ic_facebook.svg
   SvgGenImage get icFacebook =>
       const SvgGenImage('assets/icons/ic_facebook.svg');
@@ -25,8 +32,22 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_google.svg
   SvgGenImage get icGoogle => const SvgGenImage('assets/icons/ic_google.svg');
 
+  /// File path: assets/icons/ic_star.svg
+  SvgGenImage get icStar => const SvgGenImage('assets/icons/ic_star.svg');
+
+  /// File path: assets/icons/ic_ticket.svg
+  SvgGenImage get icTicket => const SvgGenImage('assets/icons/ic_ticket.svg');
+
   /// List of all assets
-  List<SvgGenImage> get values => [icApple, icFacebook, icGoogle];
+  List<SvgGenImage> get values => [
+    icApple,
+    icCalendar,
+    icClock,
+    icFacebook,
+    icGoogle,
+    icStar,
+    icTicket,
+  ];
 }
 
 class $AssetsImagesGen {

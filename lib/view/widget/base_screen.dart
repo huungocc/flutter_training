@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_training/ui/widget/base_text_label.dart';
+import 'package:flutter_training/view/widget/base_text_label.dart';
 
 import '../../res/colors.dart';
 

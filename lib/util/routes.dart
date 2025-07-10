@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_training/ui/screen/onboarding/sign_screen.dart';
+import 'package:flutter_training/view/screen/movie/detail_movie_screen.dart';
+import 'package:flutter_training/view/screen/movie/list_movie_screen.dart';
+import 'package:flutter_training/view/screen/onboarding/sign_screen.dart';
 import 'package:page_transition/page_transition.dart';
 
-import '../ui/screen/digit_clock_screen.dart';
-import '../ui/screen/main_screen.dart';
-import '../ui/screen/onboarding/on_boarding_screen.dart';
+import '../view/screen/digit_clock_screen.dart';
+import '../view/screen/main_screen.dart';
+import '../view/screen/onboarding/on_boarding_screen.dart';
 import 'enums.dart';
 
 class Routes {
@@ -14,6 +16,8 @@ class Routes {
   static const String onBoardingScreen = "/onBoardingScreen";
   static const String signScreen = "/signScreen";
   static const String digitClockScreen = "/digitClockScreen";
+  static const String listMovieScreen = "/listMovieScreen";
+  static const String detailMovieScreen = "/detailMovieScreen";
 
   static String initScreen() => mainScreen;
 
@@ -36,6 +40,10 @@ class Routes {
         );
       case digitClockScreen:
         return PageTransition(child: DigitClockScreen(), type: PageTransitionType.rightToLeft);
+      case listMovieScreen:
+        return PageTransition(child: ListMovieScreen(), type: PageTransitionType.rightToLeft);
+      case detailMovieScreen:
+        return PageTransition(child: DetailMovieScreen(), type: PageTransitionType.rightToLeft);
       default:
         return MaterialPageRoute(builder: (context) => Container());
     }
