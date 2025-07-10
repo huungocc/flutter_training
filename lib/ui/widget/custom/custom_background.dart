@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 import '../../../res/colors.dart';
@@ -56,18 +58,14 @@ class CustomBackground extends StatelessWidget {
           Transform.translate(
             offset: Offset(-350, 600),
             child: Transform.rotate(
-              angle: 45 * 3.1415926 / 180,
-              child: Positioned(
-                bottom: -300,
-                left: -400,
-                child: Container(
-                  width: 500,
-                  height: 500,
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: AppColors.fff8f9ff,
-                      width: 3,
-                    ),
+              angle: 45 * pi / 180,
+              child: Container(
+                width: 500,
+                height: 500,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: AppColors.fff8f9ff,
+                    width: 3,
                   ),
                 ),
               ),

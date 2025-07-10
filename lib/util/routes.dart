@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_training/ui/screen/onboarding/sign_screen.dart';
 import 'package:page_transition/page_transition.dart';
 
+import '../ui/screen/digit_clock_screen.dart';
 import '../ui/screen/main_screen.dart';
 import '../ui/screen/onboarding/on_boarding_screen.dart';
 import 'enums.dart';
@@ -12,6 +13,7 @@ class Routes {
   static const String mainScreen = "/mainScreen";
   static const String onBoardingScreen = "/onBoardingScreen";
   static const String signScreen = "/signScreen";
+  static const String digitClockScreen = "/digitClockScreen";
 
   static String initScreen() => mainScreen;
 
@@ -32,6 +34,8 @@ class Routes {
             ),
             type: PageTransitionType.fade
         );
+      case digitClockScreen:
+        return PageTransition(child: DigitClockScreen(), type: PageTransitionType.rightToLeft);
       default:
         return MaterialPageRoute(builder: (context) => Container());
     }

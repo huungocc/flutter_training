@@ -26,12 +26,22 @@ class _MainScreenState extends State<MainScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               BaseButton(
-                title: 'Login Screen',
+                title: 'Login',
                 titleColor: AppColors.white,
                 backgroundColor: AppColors.black,
                 borderRadius: 20,
                 onTap: () {
                   Navigator.pushNamed(context, Routes.onBoardingScreen);
+                },
+              ),
+              const SizedBox(height: 10,),
+              BaseButton(
+                title: 'Digit Clock',
+                titleColor: AppColors.white,
+                backgroundColor: AppColors.black,
+                borderRadius: 20,
+                onTap: () {
+                  Navigator.pushNamed(context, Routes.digitClockScreen);
                 },
               )
             ],
