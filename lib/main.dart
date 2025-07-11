@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      navigatorKey: NavigationService.navigatorKey,
       initialRoute: Routes.initScreen(),
       onGenerateRoute: Routes.generateRoute,
       theme: ThemeData(
@@ -23,4 +24,12 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
+}
+
+class NavigationService {
+  static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
+  static NavigatorState? get navigator => navigatorKey.currentState;
+
+  static BuildContext? get context => navigatorKey.currentContext;
 }

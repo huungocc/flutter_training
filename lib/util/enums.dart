@@ -9,3 +9,9 @@ enum MovieIconType {
   calendar,
   clock
 }
+
+enum TodoIconType {
+  list,
+  calendar,
+  trophy
+}

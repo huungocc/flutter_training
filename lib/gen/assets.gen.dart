@@ -38,6 +38,26 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_ticket.svg
   SvgGenImage get icTicket => const SvgGenImage('assets/icons/ic_ticket.svg');
 
+  /// File path: assets/icons/ic_todo_calendar.svg
+  SvgGenImage get icTodoCalendar =>
+      const SvgGenImage('assets/icons/ic_todo_calendar.svg');
+
+  /// File path: assets/icons/ic_todo_calendar_2.svg
+  SvgGenImage get icTodoCalendar2 =>
+      const SvgGenImage('assets/icons/ic_todo_calendar_2.svg');
+
+  /// File path: assets/icons/ic_todo_clock.svg
+  SvgGenImage get icTodoClock =>
+      const SvgGenImage('assets/icons/ic_todo_clock.svg');
+
+  /// File path: assets/icons/ic_todo_list.svg
+  SvgGenImage get icTodoList =>
+      const SvgGenImage('assets/icons/ic_todo_list.svg');
+
+  /// File path: assets/icons/ic_todo_trophy.svg
+  SvgGenImage get icTodoTrophy =>
+      const SvgGenImage('assets/icons/ic_todo_trophy.svg');
+
   /// List of all assets
   List<SvgGenImage> get values => [
     icApple,
@@ -47,6 +67,11 @@ class $AssetsIconsGen {
     icGoogle,
     icStar,
     icTicket,
+    icTodoCalendar,
+    icTodoCalendar2,
+    icTodoClock,
+    icTodoList,
+    icTodoTrophy,
   ];
 }
 
@@ -64,8 +89,12 @@ class $AssetsImagesGen {
 class Assets {
   const Assets._();
 
+  static const String aEnv = '.env';
   static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
+
+  /// List of all assets
+  static List<String> get values => [aEnv];
 }
 
 class AssetGenImage {

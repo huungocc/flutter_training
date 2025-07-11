@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_training/network/api_constant.dart';
+import 'package:flutter_training/network/exception_handler.dart';
 
 class NetworkImpl {
   final Dio _dio;
@@ -34,7 +35,9 @@ class NetworkImpl {
       final response = await _dio.get(url, queryParameters: query);
       return response.data;
     } on DioException catch (e) {
-      throw _handleDioError(e);
+      final errorMessage = ExceptionHandler.handleDioError(e);
+      ExceptionHandler.showErrorSnackBar('$errorMessage');
+      rethrow;
     }
   }
 
@@ -48,20 +51,5 @@ class NetworkImpl {
 
   void addInterceptor(Interceptor interceptor) {
     _dio.interceptors.add(interceptor);
-  }
-
-  Exception _handleDioError(DioException e) {
-    switch (e.type) {
-      case DioExceptionType.connectionTimeout:
-        return Exception("Kết nối quá lâu");
-      case DioExceptionType.receiveTimeout:
-        return Exception("Nhận dữ liệu quá lâu");
-      case DioExceptionType.badResponse:
-        return Exception("Lỗi server: ${e.response?.statusCode}");
-      case DioExceptionType.connectionError:
-        return Exception("Không có kết nối mạng");
-      default:
-        return Exception("Lỗi không xác định: ${e.message}");
-    }
   }
 }
