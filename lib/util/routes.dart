@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_training/model/movie_model.dart';
 import 'package:flutter_training/view/screen/movie/detail_movie_screen.dart';
 import 'package:flutter_training/view/screen/movie/list_movie_screen.dart';
 import 'package:flutter_training/view/screen/onboarding/sign_screen.dart';
@@ -43,7 +44,16 @@ class Routes {
       case listMovieScreen:
         return PageTransition(child: ListMovieScreen(), type: PageTransitionType.rightToLeft);
       case detailMovieScreen:
-        return PageTransition(child: DetailMovieScreen(), type: PageTransitionType.rightToLeft);
+        MovieModel? arg;
+        if (settings.arguments is MovieModel) {
+          arg = settings.arguments as MovieModel;
+        }
+        return PageTransition(
+            child: DetailMovieScreen(
+                arg: arg
+            ),
+            type: PageTransitionType.rightToLeft
+        );
       default:
         return MaterialPageRoute(builder: (context) => Container());
     }

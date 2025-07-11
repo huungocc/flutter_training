@@ -8,20 +8,18 @@ import 'package:flutter_training/view/widget/base_screen.dart';
 import 'package:flutter_training/view/widget/base_text_label.dart';
 import 'package:flutter_training/view/widget/custom/custom_widget.dart';
 
+import '../../../model/movie_model.dart';
+import '../../../network/api_constant.dart';
 import '../../../res/colors.dart';
 
-class DetailMovieScreen extends StatefulWidget {
-  const DetailMovieScreen({super.key});
+class DetailMovieScreen extends StatelessWidget {
+  final MovieModel? arg;
 
-  @override
-  State<DetailMovieScreen> createState() => _DetailMovieScreenState();
-}
-
-class _DetailMovieScreenState extends State<DetailMovieScreen> {
-  bool isMark = false;
+  const DetailMovieScreen({super.key, this.arg});
 
   @override
   Widget build(BuildContext context) {
+    bool isMark = false;
     return BaseScreen(
       colorAppBar: Colors.transparent,
       iconBackColor: AppColors.white,
@@ -30,16 +28,20 @@ class _DetailMovieScreenState extends State<DetailMovieScreen> {
       title: 'Details',
       colorTitle: AppColors.white,
       rightWidgets: [
-        IconButton(
-          onPressed: () {
-            setState(() {
-              isMark = !isMark;
-            });
+        StatefulBuilder(
+          builder: (context, setState) {
+            return IconButton(
+              onPressed: () {
+                setState(() {
+                  isMark = !isMark;
+                });
+              },
+              icon: Icon(
+                isMark ? Icons.bookmark : Icons.bookmark_border,
+                color: AppColors.white,
+              ),
+            );
           },
-          icon: Icon(
-            isMark ? Icons.bookmark : Icons.bookmark_border,
-            color: AppColors.white,
-          ),
         ),
       ],
       body: SingleChildScrollView(
@@ -55,13 +57,11 @@ class _DetailMovieScreenState extends State<DetailMovieScreen> {
                     bottomRight: Radius.circular(20),
                   ),
                   child: CachedNetworkImage(
-                    imageUrl:
-                        'https://bloganchoi.com/wp-content/uploads/2021/12/anh-dai-dien-tu-thiet-ke-spiderman.jpg',
+                    imageUrl: '${ApiConstant.movieImageUrl}${arg?.backdropPath}',
                     height: 250,
                     width: double.infinity,
                     fit: BoxFit.cover,
-                    placeholder: (context, url) =>
-                        SpinKitCircle(color: AppColors.white, size: 30),
+                    placeholder: (context, url) => SpinKitCircle(color: AppColors.white, size: 30),
                     errorWidget: (context, url, error) => Icon(Icons.error),
                   ),
                 ),
@@ -73,10 +73,8 @@ class _DetailMovieScreenState extends State<DetailMovieScreen> {
                     child: CachedNetworkImage(
                       height: 150,
                       width: 120,
-                      imageUrl:
-                          'https://image.api.playstation.com/vulcan/ap/rnd/202306/1219/60eca3ac155247e21850c7d075d01ebf0f3f5dbf19ccd2a1.jpg',
-                      placeholder: (context, url) =>
-                          SpinKitCircle(color: AppColors.white, size: 30),
+                      imageUrl: '${ApiConstant.movieImageUrl}${arg?.posterPath}',
+                      placeholder: (context, url) => SpinKitCircle(color: AppColors.white, size: 30),
                       errorWidget: (context, url, error) => Icon(Icons.error),
                       fit: BoxFit.cover,
                     ),
@@ -88,13 +86,13 @@ class _DetailMovieScreenState extends State<DetailMovieScreen> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8),
                     child: BackdropFilter(
-                      filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                      filter: ImageFilter.blur(sigmaX: 30, sigmaY: 30),
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 7,
-                          horizontal: 10,
+                        padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 10),
+                        child: CustomWidget.infoItem(
+                          MovieIconType.star,
+                          arg?.voteAverage?.toStringAsFixed(1) ?? 'N/A',
                         ),
-                        child: CustomWidget.infoItem(MovieIconType.star, '4.5'),
                       ),
                     ),
                   ),
@@ -104,7 +102,7 @@ class _DetailMovieScreenState extends State<DetailMovieScreen> {
             Padding(
               padding: const EdgeInsets.fromLTRB(155, 15, 20, 0),
               child: BaseTextLabel(
-                'Spider-man No Way Home',
+                arg?.title,
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
                 color: AppColors.white,
@@ -112,32 +110,41 @@ class _DetailMovieScreenState extends State<DetailMovieScreen> {
                 textAlign: TextAlign.start,
               ),
             ),
-            const SizedBox(height: 30),
+            const SizedBox(height: 60),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                CustomWidget.infoItem(MovieIconType.ticket, 'Action'),
+                CustomWidget.infoItem(
+                  MovieIconType.calendar,
+                  arg?.releaseDate?.substring(0, 4) ?? 'N/A',
+                ),
                 Container(
                   width: 2,
                   height: 18,
                   color: Colors.grey,
                   margin: const EdgeInsets.symmetric(horizontal: 10),
                 ),
-                CustomWidget.infoItem(MovieIconType.calendar, '2019'),
+                CustomWidget.infoItem(
+                  MovieIconType.clock,
+                  '${arg?.runtime ?? 'N/A'} minutes',
+                ),
                 Container(
                   width: 2,
                   height: 18,
                   color: Colors.grey,
                   margin: const EdgeInsets.symmetric(horizontal: 10),
                 ),
-                CustomWidget.infoItem(MovieIconType.clock, '139 minutes'),
+                CustomWidget.infoItem(
+                  MovieIconType.ticket,
+                  arg?.genres?.first.name ?? 'N/A',
+                ),
               ],
             ),
-            const SizedBox(height: 40),
+            const SizedBox(height: 30),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: BaseTextLabel(
-                'From DC Comics comes the Suicide Squad, an antihero team of incarcerated supervillains who act as deniable assets for the United States government, undertaking high-risk black ops missions in exchange for commuted prison sentences.',
+                arg?.overview,
                 color: AppColors.white,
               ),
             ),
@@ -147,3 +154,4 @@ class _DetailMovieScreenState extends State<DetailMovieScreen> {
     );
   }
 }
+

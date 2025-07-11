@@ -53,7 +53,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                       borderRadius: 15,
                       onTap: () => Navigator.pushNamed(context, Routes.signScreen, arguments: SignType.login),
                       shadowColor: AppColors.ff1f41bb.withOpacity(0.5),
-                      child: BaseTextLabel('Login', fontWeight: FontWeight.bold, fontSize: 18, color: AppColors.white,),
+                      child: BaseTextLabel('Login', fontWeight: FontWeight.w600, fontSize: 18, color: AppColors.white,),
                     ),
                   ),
                   const SizedBox(width: 20,),
@@ -64,7 +64,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                       height: 60,
                       borderRadius: 15,
                       onTap: () => Navigator.pushNamed(context, Routes.signScreen, arguments: SignType.register),
-                      child: BaseTextLabel('Register', fontWeight: FontWeight.bold, fontSize: 18,),
+                      child: BaseTextLabel('Register', fontWeight: FontWeight.w600, fontSize: 18,),
                     ),
                   )
                 ],

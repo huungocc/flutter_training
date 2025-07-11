@@ -26,4 +26,5 @@ class AppColors {
   static const Color fff8f9ff = Color(0xfff8f9ff);
   static const Color ffe6e6e6 = Color(0xffe6e6e6);
   static const Color movieBackground = Color(0xff242a32);
+  static const Color fff98703 = Color(0xfff98703);
 }
