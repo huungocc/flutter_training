@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_training/ui/widget/base_screen.dart';
+import 'package:flutter_training/view/widget/base_screen.dart';
 import 'package:intl/intl.dart';
 
 import '../../res/colors.dart';
@@ -15,7 +15,7 @@ class DigitClockScreen extends StatefulWidget {
 }
 
 class _DigitClockScreenState extends State<DigitClockScreen> {
-  DateTime time = DateTime(0, 1, 1, 0, 0, 0);
+  DateTime time = DateTime.now();
   late Timer timer;
 
   @override

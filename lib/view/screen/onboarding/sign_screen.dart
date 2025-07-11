@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_training/ui/widget/base_button.dart';
-import 'package:flutter_training/ui/widget/base_screen.dart';
-import 'package:flutter_training/ui/widget/base_text_input.dart';
-import 'package:flutter_training/ui/widget/base_text_label.dart';
-import 'package:flutter_training/ui/widget/custom/custom_background.dart';
+import 'package:flutter_training/view/widget/base_button.dart';
+import 'package:flutter_training/view/widget/base_screen.dart';
+import 'package:flutter_training/view/widget/base_text_input.dart';
+import 'package:flutter_training/view/widget/base_text_label.dart';
+import 'package:flutter_training/view/widget/custom/custom_background.dart';
 
 import '../../../gen/assets.gen.dart';
 import '../../../res/colors.dart';
