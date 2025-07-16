@@ -6,6 +6,7 @@ import 'package:flutter_training/ui/screen/movie/view_model/movie_service.dart';
 import 'package:flutter_training/ui/screen/movie/view_model/movie_cubit.dart';
 import 'package:flutter_training/ui/screen/movie/view_model/movie_state.dart';
 import 'package:flutter_training/ui/widget/base_screen.dart';
+import 'package:flutter_training/ui/widget/base_text_label.dart';
 import 'package:flutter_training/ui/widget/custom/movie_info_card.dart';
 import 'package:flutter_training/util/routes.dart';
 
@@ -32,7 +33,7 @@ class _ListMovieBodyState extends State<_ListMovieBody> {
   @override
   void initState() {
     super.initState();
-    context.read<MovieCubit>().fetchPopularMovies();
+    context.read<MovieCubit>().fetchPopularMoviesStream();
   }
 
   @override
@@ -44,40 +45,86 @@ class _ListMovieBodyState extends State<_ListMovieBody> {
       isLightStatusBar: true,
       title: 'Movies',
       colorTitle: AppColors.white,
-      body: BlocBuilder<MovieCubit, MovieState>(
-        builder: (context, state) {
-          if (state is MovieLoading) {
-            return Center(
-              child: SpinKitCircle(size: 50, color: AppColors.white,),
-            );
-          }
-
-          if (state is MovieLoaded) {
-            final movies = state.movies;
-            return Container(
-              margin: const EdgeInsets.symmetric(horizontal: 20),
-              child: ListView.separated(
-                itemCount: movies.length,
-                separatorBuilder: (context, index) => const SizedBox(height: 20),
-                itemBuilder: (context, index) {
-                  final movie = movies[index];
-
-                  return MovieInfoCard(
-                    movie: movie,
-                    onTap: () {
-                      Navigator.pushNamed(
-                        context,
-                        Routes.detailMovieScreen,
-                        arguments: movie,
-                      );
-                    },
-                  );
-                },
-              ),
-            );
-          }
-          return SizedBox.shrink();
+      body: RefreshIndicator(
+        backgroundColor: AppColors.white,
+        color: AppColors.black,
+        onRefresh: () async {
+          context.read<MovieCubit>().fetchPopularMoviesStream();
         },
+        child: BlocBuilder<MovieCubit, MovieState>(
+          builder: (context, state) {
+            if (state is MovieLoading) {
+              return Center(
+                child: SpinKitCircle(size: 50, color: AppColors.white,),
+              );
+            }
+            // if (state is MovieLoaded) {
+            //   final movies = state.movies;
+            //   return Container(
+            //     margin: const EdgeInsets.symmetric(horizontal: 20),
+            //     child: ListView.separated(
+            //       itemCount: movies.length,
+            //       separatorBuilder: (context, index) => const SizedBox(height: 20),
+            //       itemBuilder: (context, index) {
+            //         final movie = movies[index];
+            //
+            //         return MovieInfoCard(
+            //           movie: movie,
+            //           onTap: () {
+            //             Navigator.pushNamed(
+            //               context,
+            //               Routes.detailMovieScreen,
+            //               arguments: movie,
+            //             );
+            //           },
+            //         );
+            //       },
+            //     ),
+            //   );
+            // }
+            if (state is MovieStreaming) {
+              final movies = state.movies;
+              return Column(
+                children: [
+                  if (!state.isComplete)
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      spacing: 10,
+                      children: [
+                        SpinKitCircle(size: 25, color: AppColors.white,),
+                        BaseTextLabel('Đang tải phim...', color: AppColors.white,)
+                      ],
+                    ),
+
+                  Expanded(
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 20),
+                      child: ListView.separated(
+                        itemCount: movies.length,
+                        separatorBuilder: (context, index) => const SizedBox(height: 20),
+                        itemBuilder: (context, index) {
+                          final movie = movies[index];
+
+                          return MovieInfoCard(
+                            movie: movie,
+                            onTap: () {
+                              Navigator.pushNamed(
+                                context,
+                                Routes.detailMovieScreen,
+                                arguments: movie,
+                              );
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            }
+            return SizedBox.shrink();
+          },
+        ),
       ),
     );
   }

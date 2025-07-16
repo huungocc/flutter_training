@@ -1,11 +1,38 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_training/network/api_constant.dart';
-
-import '../model/movie_model.dart';
-import '../../../../network/network_impl.dart';
+import 'package:flutter_training/network/network_impl.dart';
+import 'package:flutter_training/ui/screen/movie/model/movie_model.dart';
 
 class MovieService {
   final NetworkImpl network = NetworkImpl();
+
+  Stream<MovieModel> getListPopularMovieStream() async* {
+    final response = await network.get(
+      ApiConstant.listPopularMovie,
+      query: {
+        'api_key': dotenv.env['MOVIE_API_KEY'].toString(),
+      },
+    );
+
+    if (response is! Map<String, dynamic> || response['results'] is! List) {
+      throw Exception('Lỗi định dạng Response');
+    }
+
+    final List movieList = response['results'] as List;
+    final List<int> movieIds = movieList
+        .map((movie) => movie['id'] as int)
+        .toList();
+
+    for (final id in movieIds) {
+      try {
+        final movieDetail = await getMovieDetail(id);
+        yield movieDetail;
+      } catch (e) {
+        print('Lỗi load phim $id: $e');
+        continue;
+      }
+    }
+  }
 
   Future<List<MovieModel>> getListPopularMovie() async {
     final response = await network.get(
@@ -20,7 +47,6 @@ class MovieService {
     }
 
     final List movieList = response['results'] as List;
-
     final List<int> movieIds = movieList
         .map((movie) => movie['id'] as int)
         .toList();
@@ -30,7 +56,6 @@ class MovieService {
         .toList();
 
     final List<MovieModel> detailedMovies = await Future.wait(detailFutures);
-
     return detailedMovies;
   }
 

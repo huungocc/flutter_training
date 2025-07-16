@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_training/main.dart';
-import 'package:flutter_training/res/colors.dart';
 
 import '../ui/widget/base_text_label.dart';
 
@@ -71,6 +70,28 @@ class ExceptionHandler {
     }
   }
 
+  static void showSuccessSnackBar(String message) {
+    final context = NavigationService.context;
+    if (context != null && !_isShowingSnackBar) {
+      _isShowingSnackBar = true;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: BaseTextLabel(message),
+          backgroundColor: Colors.greenAccent,
+          duration: const Duration(seconds: 3),
+          behavior: SnackBarBehavior.floating,
+          margin: const EdgeInsets.all(16),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+        ),
+      ).closed.then((_) {
+        _isShowingSnackBar = false;
+      });
+    }
+  }
+
   static void showErrorSnackBar(String message) {
     final context = NavigationService.context;
     if (context != null && !_isShowingSnackBar) {
@@ -79,7 +100,7 @@ class ExceptionHandler {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: BaseTextLabel(message),
-          backgroundColor: AppColors.white,
+          backgroundColor: Colors.white,
           duration: const Duration(seconds: 3),
           behavior: SnackBarBehavior.floating,
           margin: const EdgeInsets.all(16),

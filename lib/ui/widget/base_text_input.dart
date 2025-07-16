@@ -103,7 +103,7 @@ class TextFieldState extends State<BaseTextInput> {
           margin: widget.margin ?? EdgeInsets.zero,
           alignment: Alignment.center,
           decoration: BoxDecoration(
-              color: widget.enabled ? widget.colorBgTextField : widget.colorBgTextFieldDisable,
+              color: widget.colorBgTextField,
               borderRadius: BorderRadius.circular(widget.borderRadius ?? 16)),
           child: Stack(
             children: [

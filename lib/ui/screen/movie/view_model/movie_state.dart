@@ -21,6 +21,16 @@ class MovieLoaded extends MovieState {
   List<Object> get props => [movies];
 }
 
+class MovieStreaming extends MovieState {
+  final List<MovieModel> movies;
+  final bool isComplete;
+
+  const MovieStreaming(this.movies, {this.isComplete = false});
+
+  @override
+  List<Object> get props => [movies, isComplete];
+}
+
 class MovieError extends MovieState {
   // final String message;
   //
