@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_training/gen_l10n/app_localizations.dart';
 import 'package:flutter_training/network/api_constant.dart';
 import 'package:flutter_training/res/colors.dart';
 import 'package:flutter_training/ui/widget/base_screen.dart';
@@ -25,7 +26,7 @@ class DetailMovieScreen extends StatelessWidget {
       iconBackColor: AppColors.white,
       colorBackground: AppColors.movieBackground,
       isLightStatusBar: true,
-      title: 'Details',
+      title: AppLocalizations.of(context)!.details,
       colorTitle: AppColors.white,
       rightWidgets: [
         StatefulBuilder(
@@ -126,7 +127,7 @@ class DetailMovieScreen extends StatelessWidget {
                 ),
                 CustomWidget.infoItem(
                   MovieIconType.clock,
-                  '${arg?.runtime ?? 'N/A'} minutes',
+                  AppLocalizations.of(context)!.count_minutes(arg?.runtime ?? 'N/A')
                 ),
                 Container(
                   width: 2,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_training/gen_l10n/app_localizations.dart';
 import 'package:flutter_training/res/colors.dart';
 import 'package:flutter_training/ui/screen/todo/view/add_todo_screen.dart';
 import 'package:flutter_training/ui/screen/todo/view_model/todo_cubit.dart';
@@ -64,7 +65,7 @@ class _TodoBodyState extends State<_TodoBody> {
                   ),
                   const SizedBox(height: 40),
                   BaseTextLabel(
-                    'My Todo List',
+                    AppLocalizations.of(context)!.my_todo_list,
                     color: AppColors.white,
                     fontWeight: FontWeight.bold,
                     fontSize: 32,
@@ -80,7 +81,7 @@ class _TodoBodyState extends State<_TodoBody> {
       bottomBar: BottomAppBar(
         color: Colors.transparent,
         child: BaseButton(
-          title: 'Add New Task',
+          title: AppLocalizations.of(context)!.add_new_task,
           backgroundColor: AppColors.todoPurple,
           borderRadius: 50,
           onTap: () async {
@@ -231,7 +232,7 @@ class _TodoBodyState extends State<_TodoBody> {
                         horizontal: 20,
                       ),
                       child: BaseTextLabel(
-                        'Completed',
+                        AppLocalizations.of(context)!.completed,
                         fontWeight: FontWeight.w600,
                         fontSize: 16,
                       ),

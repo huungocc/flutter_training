@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_training/gen/assets.gen.dart';
+import 'package:flutter_training/gen_l10n/app_localizations.dart';
 import 'package:flutter_training/res/colors.dart';
 import 'package:flutter_training/ui/widget/base_button.dart';
 import 'package:flutter_training/ui/widget/base_screen.dart';
@@ -31,7 +32,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               Assets.images.welcomeImage.image(),
               const SizedBox(height: 20,),
               BaseTextLabel(
-                'Discover Your Dream Job here',
+                AppLocalizations.of(context)!.discover_your_dream,
                 color: AppColors.ff1f41bb,
                 fontWeight: FontWeight.bold,
                 fontSize: 35,
@@ -39,7 +40,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               ),
               const SizedBox(height: 40,),
               BaseTextLabel(
-                'Explore all the existing job roles based on your interest and study major',
+                AppLocalizations.of(context)!.explorer_all_job,
                 color: AppColors.black,
                 fontSize: 14,
                 textAlign: TextAlign.center,
@@ -55,7 +56,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                         borderRadius: 15,
                         onTap: () => Navigator.pushNamed(context, Routes.signScreen, arguments: SignType.login),
                         shadowColor: AppColors.ff1f41bb.withOpacity(0.5),
-                        child: BaseTextLabel('Login', fontWeight: FontWeight.w600, fontSize: 18, color: AppColors.white,),
+                        child: BaseTextLabel(AppLocalizations.of(context)!.login, fontWeight: FontWeight.w600, fontSize: 18, color: AppColors.white,),
                       ),
                     ),
                     const SizedBox(width: 20,),
@@ -66,7 +67,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                         height: 60,
                         borderRadius: 15,
                         onTap: () => Navigator.pushNamed(context, Routes.signScreen, arguments: SignType.register),
-                        child: BaseTextLabel('Register', fontWeight: FontWeight.w600, fontSize: 18,),
+                        child: BaseTextLabel(AppLocalizations.of(context)!.register, fontWeight: FontWeight.w600, fontSize: 18,),
                       ),
                     )
                   ],

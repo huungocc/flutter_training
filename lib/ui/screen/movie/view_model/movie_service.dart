@@ -2,6 +2,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_training/network/api_constant.dart';
 import 'package:flutter_training/network/network_impl.dart';
 import 'package:flutter_training/ui/screen/movie/model/movie_model.dart';
+import 'package:flutter_training/util/localization_service.dart';
 
 class MovieService {
   final NetworkImpl network = NetworkImpl();
@@ -15,7 +16,7 @@ class MovieService {
     );
 
     if (response is! Map<String, dynamic> || response['results'] is! List) {
-      throw Exception('Lỗi định dạng Response');
+      throw Exception(LocalizationService.current.syntax_error_type);
     }
 
     final List movieList = response['results'] as List;
@@ -43,7 +44,7 @@ class MovieService {
     );
 
     if (response is! Map<String, dynamic> || response['results'] is! List) {
-      throw Exception('Lỗi định dạng Response');
+      throw Exception(LocalizationService.current.syntax_error_type);
     }
 
     final List movieList = response['results'] as List;
@@ -70,7 +71,7 @@ class MovieService {
     if (response is Map<String, dynamic>) {
       return MovieModel.fromJson(response);
     } else {
-      throw Exception('Lỗi định dạng Response Detail');
+      throw Exception(LocalizationService.current.syntax_error_type);
     }
   }
 }
