@@ -321,7 +321,7 @@ class _AddTodoBodyState extends State<_AddTodoBody> {
                               if (_keyTaskTitle.text.isNotEmpty && _keyDate.text.isNotEmpty && _keyTime.text.isNotEmpty && _keyNotes.text.isNotEmpty) {
                                 model.taskTitle = _keyTaskTitle.text;
                                 model.date = DateFormat('dd/MM/yyyy').parse(_keyDate.text);
-                                model.time = _keyTime.text;
+                                model.time = DateFormat('HH:mm:ss').format(DateFormat('hh:mm a').parse(_keyTime.text));
                                 model.notes = _keyNotes.text;
                                 if (isUpdate) {
                                   context.read<TodoCubit>().updateTodo(model);

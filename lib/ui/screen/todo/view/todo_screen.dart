@@ -181,7 +181,7 @@ class _TodoBodyState extends State<_TodoBody> {
                                     setState(() {
                                       todos.removeAt(index);
                                     });
-                                    context.read<TodoCubit>().deleteTodo(todo.id!);
+                                    context.read<TodoCubit>().deleteTodo(todo);
                                   },
                                   key: Key(todos[index].id!),
                                   child: TodoInfoCard(
@@ -213,7 +213,7 @@ class _TodoBodyState extends State<_TodoBody> {
                                         onConfirm: () {
                                           context
                                               .read<TodoCubit>()
-                                              .updateTodoStatus(todo.id!, true);
+                                              .updateTodoStatus(todo, true);
                                         },
                                       );
                                     },
@@ -281,7 +281,7 @@ class _TodoBodyState extends State<_TodoBody> {
                                         context
                                             .read<TodoCubit>()
                                             .updateTodoStatus(
-                                              complete.id!,
+                                              complete,
                                               false,
                                             );
                                       },

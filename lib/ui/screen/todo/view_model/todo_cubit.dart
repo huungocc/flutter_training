@@ -18,6 +18,10 @@ class TodoCubit extends Cubit<TodoState> {
       final todos = await TodoService.fetchTodos(completed: false);
       final completed = await TodoService.fetchTodos(completed: true);
 
+      for (var todo in todos) {
+        await TodoService.scheduleTodoNotification(todo);
+      }
+
       emit(TodoLoaded(todos: todos, completed: completed));
     } catch (e) {
       ExceptionHandler.showErrorSnackBar('$e');
@@ -29,6 +33,7 @@ class TodoCubit extends Cubit<TodoState> {
     emit(TodoLoading());
     try {
       await TodoService.addTodo(todo);
+      await TodoService.scheduleTodoNotification(todo);
       emit(TodoOperationSuccess(LocalizationService.current.todo_add_success));
     } catch (e) {
       ExceptionHandler.showErrorSnackBar('$e');
@@ -40,6 +45,7 @@ class TodoCubit extends Cubit<TodoState> {
     emit(TodoLoading());
     try {
       await TodoService.updateTodo(todo);
+      await TodoService.scheduleTodoNotification(todo);
       emit(TodoOperationSuccess(LocalizationService.current.todo_update_success));
     } catch (e) {
       ExceptionHandler.showErrorSnackBar('$e');
@@ -47,10 +53,15 @@ class TodoCubit extends Cubit<TodoState> {
     }
   }
 
-  Future<void> updateTodoStatus(String id, bool completed) async {
+  Future<void> updateTodoStatus(TodoModel todo, bool completed) async {
     emit(TodoLoading());
     try {
-      await TodoService.updateTodoStatus(id, completed);
+      await TodoService.updateTodoStatus(todo.id!, completed);
+      if(completed == false) {
+        await TodoService.scheduleTodoNotification(todo);
+      } else {
+        await TodoService.cancelTodoNotification(todo);
+      }
       emit(TodoOperationSuccess(LocalizationService.current.todo_update_status_success));
     } catch (e) {
       ExceptionHandler.showErrorSnackBar('$e');
@@ -58,10 +69,11 @@ class TodoCubit extends Cubit<TodoState> {
     }
   }
 
-  Future<void> deleteTodo(String id) async {
+  Future<void> deleteTodo(TodoModel todo) async {
     //emit(TodoLoading());
     try {
-      await TodoService.deleteTodo(id);
+      await TodoService.deleteTodo(todo.id!);
+      await TodoService.cancelTodoNotification(todo);
       //emit(TodoOperationSuccess('Xoá thành công'));
       ExceptionHandler.showSuccessSnackBar(LocalizationService.current.todo_delete_success);
     } catch (e) {

@@ -1,5 +1,6 @@
 import 'package:flutter_training/ui/screen/todo/model/todo_model.dart';
 import 'package:flutter_training/util/device_info_util.dart';
+import 'package:flutter_training/util/notification_service.dart';
 import 'package:flutter_training/util/shared_preference.dart';
 import 'package:flutter_training/util/supabase_config.dart';
 
@@ -104,5 +105,31 @@ class TodoService {
       print('[deleteTodo] ERROR: $e');
       rethrow;
     }
+  }
+
+  static Future<void> scheduleTodoNotification(TodoModel todo) async {
+    if (todo.date == null || todo.time == null) return;
+
+    final timeParts = todo.time!.split(":");
+    final scheduledDateTime = DateTime(
+      todo.date!.year,
+      todo.date!.month,
+      todo.date!.day,
+      int.parse(timeParts[0]),
+      int.parse(timeParts[1]),
+    );
+
+    if (scheduledDateTime.isBefore(DateTime.now())) return;
+
+    await NotificationService.showScheduledNotification(
+      id: todo.hashCode,
+      title: 'Todo Reminder',
+      body: todo.taskTitle ?? 'You have a task!',
+      scheduledDateTime: scheduledDateTime,
+    );
+  }
+
+  static Future<void> cancelTodoNotification(TodoModel todo) async {
+    await NotificationService.cancelNotification(todo.hashCode);
   }
 }
