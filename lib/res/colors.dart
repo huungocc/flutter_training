@@ -27,4 +27,11 @@ class AppColors {
   static const Color ffe6e6e6 = Color(0xffe6e6e6);
   static const Color movieBackground = Color(0xff242a32);
   static const Color fff98703 = Color(0xfff98703);
+
+  static const Color todoPurple = Color(0xff4a3780);
+  static const Color todoLightPurple = Color(0xff5c4a8c);
+  static const Color todoBackground = Color(0xffe5e9ed);
+  static const Color bgListIcon = Color(0xffdbecf6);
+  static const Color bgCalendarIcon = Color(0xffe7e2f3);
+  static const Color bgTrophyIcon = Color(0xfffef5d3);
 }

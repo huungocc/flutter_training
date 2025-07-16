@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_training/model/movie_model.dart';
-import 'package:flutter_training/view/screen/movie/detail_movie_screen.dart';
-import 'package:flutter_training/view/screen/movie/list_movie_screen.dart';
-import 'package:flutter_training/view/screen/onboarding/sign_screen.dart';
+import 'package:flutter_training/ui/screen/digit_clock_screen.dart';
+import 'package:flutter_training/ui/screen/main_screen.dart';
+import 'package:flutter_training/ui/screen/movie/model/movie_model.dart';
+import 'package:flutter_training/ui/screen/movie/view/detail_movie_screen.dart';
+import 'package:flutter_training/ui/screen/movie/view/list_movie_screen.dart';
+import 'package:flutter_training/ui/screen/onboarding/on_boarding_screen.dart';
+import 'package:flutter_training/ui/screen/onboarding/sign_screen.dart';
+import 'package:flutter_training/ui/screen/todo/view/todo_screen.dart';
 import 'package:page_transition/page_transition.dart';
-
-import '../view/screen/digit_clock_screen.dart';
-import '../view/screen/main_screen.dart';
-import '../view/screen/onboarding/on_boarding_screen.dart';
 import 'enums.dart';
 
 class Routes {
@@ -19,40 +19,60 @@ class Routes {
   static const String digitClockScreen = "/digitClockScreen";
   static const String listMovieScreen = "/listMovieScreen";
   static const String detailMovieScreen = "/detailMovieScreen";
+  static const String todoScreen = "/todoScreen";
 
   static String initScreen() => mainScreen;
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case mainScreen:
-        return PageTransition(child: MainScreen(), type: PageTransitionType.fade);
+        return PageTransition(
+          child: MainScreen(),
+          type: PageTransitionType.fade,
+        );
       case onBoardingScreen:
-        return PageTransition(child: OnBoardingScreen(), type: PageTransitionType.rightToLeft);
+        return PageTransition(
+          child: OnBoardingScreen(),
+          type: PageTransitionType.rightToLeft,
+          isIos: true,
+        );
       case signScreen:
         SignType? arg;
         if (settings.arguments is SignType) {
           arg = settings.arguments as SignType;
         }
         return PageTransition(
-            child: SignScreen(
-                arg: arg
-            ),
-            type: PageTransitionType.fade
+          child: SignScreen(arg: arg),
+          type: PageTransitionType.fade,
+          isIos: true,
         );
       case digitClockScreen:
-        return PageTransition(child: DigitClockScreen(), type: PageTransitionType.rightToLeft);
+        return PageTransition(
+          child: DigitClockScreen(),
+          type: PageTransitionType.rightToLeft,
+          isIos: true,
+        );
       case listMovieScreen:
-        return PageTransition(child: ListMovieScreen(), type: PageTransitionType.rightToLeft);
+        return PageTransition(
+          child: ListMovieScreen(),
+          type: PageTransitionType.rightToLeft,
+          isIos: true,
+        );
       case detailMovieScreen:
         MovieModel? arg;
         if (settings.arguments is MovieModel) {
           arg = settings.arguments as MovieModel;
         }
         return PageTransition(
-            child: DetailMovieScreen(
-                arg: arg
-            ),
-            type: PageTransitionType.rightToLeft
+          child: DetailMovieScreen(arg: arg),
+          type: PageTransitionType.rightToLeft,
+          isIos: true,
+        );
+      case todoScreen:
+        return PageTransition(
+          child: TodoScreen(),
+          type: PageTransitionType.rightToLeft,
+          isIos: true,
         );
       default:
         return MaterialPageRoute(builder: (context) => Container());
