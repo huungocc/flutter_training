@@ -3,6 +3,7 @@ import 'package:flutter_training/network/exception_handler.dart';
 import 'package:flutter_training/ui/screen/todo/model/todo_model.dart';
 import 'package:flutter_training/ui/screen/todo/view_model/todo_service.dart';
 import 'package:flutter_training/ui/screen/todo/view_model/todo_state.dart';
+import 'package:flutter_training/util/localization_service.dart';
 
 class TodoCubit extends Cubit<TodoState> {
   TodoCubit() : super(TodoInitial());
@@ -28,7 +29,7 @@ class TodoCubit extends Cubit<TodoState> {
     emit(TodoLoading());
     try {
       await TodoService.addTodo(todo);
-      emit(TodoOperationSuccess('Thêm thành công'));
+      emit(TodoOperationSuccess(LocalizationService.current.todo_add_success));
     } catch (e) {
       ExceptionHandler.showErrorSnackBar('$e');
       emit(TodoError());
@@ -39,7 +40,7 @@ class TodoCubit extends Cubit<TodoState> {
     emit(TodoLoading());
     try {
       await TodoService.updateTodo(todo);
-      emit(TodoOperationSuccess('Cập nhật thành công'));
+      emit(TodoOperationSuccess(LocalizationService.current.todo_update_success));
     } catch (e) {
       ExceptionHandler.showErrorSnackBar('$e');
       emit(TodoError());
@@ -50,7 +51,7 @@ class TodoCubit extends Cubit<TodoState> {
     emit(TodoLoading());
     try {
       await TodoService.updateTodoStatus(id, completed);
-      emit(TodoOperationSuccess('Cập nhật trạng thái thành công'));
+      emit(TodoOperationSuccess(LocalizationService.current.todo_update_status_success));
     } catch (e) {
       ExceptionHandler.showErrorSnackBar('$e');
       emit(TodoError());
@@ -62,7 +63,7 @@ class TodoCubit extends Cubit<TodoState> {
     try {
       await TodoService.deleteTodo(id);
       //emit(TodoOperationSuccess('Xoá thành công'));
-      ExceptionHandler.showSuccessSnackBar('Xoá thành công');
+      ExceptionHandler.showSuccessSnackBar(LocalizationService.current.todo_delete_success);
     } catch (e) {
       ExceptionHandler.showErrorSnackBar('$e');
       emit(TodoError());

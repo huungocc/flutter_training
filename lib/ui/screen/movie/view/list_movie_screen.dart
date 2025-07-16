@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_training/gen_l10n/app_localizations.dart';
 import 'package:flutter_training/res/colors.dart';
 import 'package:flutter_training/ui/screen/movie/view_model/movie_service.dart';
 import 'package:flutter_training/ui/screen/movie/view_model/movie_cubit.dart';
@@ -43,7 +44,7 @@ class _ListMovieBodyState extends State<_ListMovieBody> {
       iconBackColor: AppColors.white,
       colorBackground: AppColors.movieBackground,
       isLightStatusBar: true,
-      title: 'Movies',
+      title: AppLocalizations.of(context)!.movies,
       colorTitle: AppColors.white,
       body: RefreshIndicator(
         backgroundColor: AppColors.white,
@@ -92,7 +93,7 @@ class _ListMovieBodyState extends State<_ListMovieBody> {
                       spacing: 10,
                       children: [
                         SpinKitCircle(size: 25, color: AppColors.white,),
-                        BaseTextLabel('Đang tải phim...', color: AppColors.white,)
+                        BaseTextLabel(AppLocalizations.of(context)!.loading_movies, color: AppColors.white,)
                       ],
                     ),
 

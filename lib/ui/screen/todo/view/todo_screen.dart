@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_training/gen_l10n/app_localizations.dart';
 import 'package:flutter_training/res/colors.dart';
 import 'package:flutter_training/ui/screen/todo/view/add_todo_screen.dart';
 import 'package:flutter_training/ui/screen/todo/view_model/todo_cubit.dart';
@@ -49,7 +50,7 @@ class _TodoBodyState extends State<_TodoBody> {
       colorBackground: AppColors.todoBackground,
       body: Stack(
         children: [
-          CustomTodoBackground(),
+          CustomTodoBackground(height: 250,),
           Align(
             alignment: Alignment.center,
             child: SafeArea(
@@ -64,7 +65,7 @@ class _TodoBodyState extends State<_TodoBody> {
                   ),
                   const SizedBox(height: 40),
                   BaseTextLabel(
-                    'My Todo List',
+                    AppLocalizations.of(context)!.my_todo_list,
                     color: AppColors.white,
                     fontWeight: FontWeight.bold,
                     fontSize: 32,
@@ -80,7 +81,7 @@ class _TodoBodyState extends State<_TodoBody> {
       bottomBar: BottomAppBar(
         color: Colors.transparent,
         child: BaseButton(
-          title: 'Add New Task',
+          title: AppLocalizations.of(context)!.add_new_task,
           backgroundColor: AppColors.todoPurple,
           borderRadius: 50,
           onTap: () async {
@@ -208,7 +209,7 @@ class _TodoBodyState extends State<_TodoBody> {
                                     },
                                     onCheck: () {
                                       BaseDialog.showNotifyDialog(
-                                        message: 'Hoàn thành công việc này?',
+                                        message: AppLocalizations.of(context)!.complete_task,
                                         onConfirm: () {
                                           context
                                               .read<TodoCubit>()
@@ -221,8 +222,8 @@ class _TodoBodyState extends State<_TodoBody> {
                               },
                             )
                           : TodoInfoCard(
-                              title: 'Chưa có Task nào',
-                              time: 'Nhấn "Add New Task"',
+                              title: AppLocalizations.of(context)!.no_data_yet,
+                              time: 'N/A',
                             ),
                     ),
                     Padding(
@@ -231,7 +232,7 @@ class _TodoBodyState extends State<_TodoBody> {
                         horizontal: 20,
                       ),
                       child: BaseTextLabel(
-                        'Completed',
+                        AppLocalizations.of(context)!.completed,
                         fontWeight: FontWeight.w600,
                         fontSize: 16,
                       ),
@@ -275,7 +276,7 @@ class _TodoBodyState extends State<_TodoBody> {
                                   onCheck: () {
                                     BaseDialog.showNotifyDialog(
                                       message:
-                                          'Bạn có chắc muốn huỷ hoàn thành?',
+                                      AppLocalizations.of(context)!.cancel_complete_task,
                                       onConfirm: () {
                                         context
                                             .read<TodoCubit>()
@@ -290,7 +291,7 @@ class _TodoBodyState extends State<_TodoBody> {
                               },
                             )
                           : TodoInfoCard(
-                              title: 'Chưa có dữ liệu',
+                              title: AppLocalizations.of(context)!.no_data_yet,
                               time: 'N/A',
                               isCompleted: true,
                             ),

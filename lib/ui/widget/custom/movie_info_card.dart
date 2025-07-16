@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_training/gen_l10n/app_localizations.dart';
 import 'package:flutter_training/network/api_constant.dart';
 import 'package:flutter_training/res/colors.dart';
 import 'package:flutter_training/ui/screen/movie/model/movie_model.dart';
@@ -62,7 +63,7 @@ class MovieInfoCard extends StatelessWidget {
                 const SizedBox(height: 5),
                 CustomWidget.infoItem(
                   MovieIconType.clock,
-                  '${movie?.runtime.toString() ?? 'N/A'} minutes',
+                  AppLocalizations.of(context)!.count_minutes(movie?.runtime ?? 'N/A')
                 ),
               ],
             ),

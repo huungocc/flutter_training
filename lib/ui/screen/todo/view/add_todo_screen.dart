@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_training/gen_l10n/app_localizations.dart';
 import 'package:flutter_training/network/exception_handler.dart';
 import 'package:flutter_training/res/colors.dart';
 import 'package:flutter_training/ui/screen/todo/model/todo_model.dart';
@@ -76,6 +77,7 @@ class _AddTodoBodyState extends State<_AddTodoBody> {
       child: SizedBox(
         height: MediaQuery.of(context).size.height - 70,
         child: Scaffold(
+          resizeToAvoidBottomInset: false,
           backgroundColor: AppColors.todoBackground,
           body: GestureDetector(
             behavior: HitTestBehavior.translucent,
@@ -117,7 +119,7 @@ class _AddTodoBodyState extends State<_AddTodoBody> {
                             Positioned(
                               top: 35,
                               child: BaseTextLabel(
-                                isUpdate ? 'Edit Task' : 'Add New Task',
+                                isUpdate ? AppLocalizations.of(context)!.edit_task : AppLocalizations.of(context)!.add_new_task,
                                 fontWeight: FontWeight.w600,
                                 fontSize: 18,
                                 color: AppColors.white,
@@ -151,8 +153,8 @@ class _AddTodoBodyState extends State<_AddTodoBody> {
                                       ),
                                       borderRadius: BorderRadius.circular(10),
                                     ),
-                                    title: 'Task Title',
-                                    hintText: 'Task Title',
+                                    title: AppLocalizations.of(context)!.task_title,
+                                    hintText: AppLocalizations.of(context)!.task_title,
                                     cursorColor: AppColors.todoPurple,
                                   ),
                                   const SizedBox(height: 20,),
@@ -161,7 +163,7 @@ class _AddTodoBodyState extends State<_AddTodoBody> {
                                     child: Row(
                                       spacing: 20,
                                       children: [
-                                        BaseTextLabel('Category', fontSize: 16, fontWeight: FontWeight.w500,),
+                                        BaseTextLabel(AppLocalizations.of(context)!.category, fontSize: 16, fontWeight: FontWeight.w500,),
                                         TodoRadioGroup(
                                           initialSelected: type,
                                           onSelected: (selectedType) {
@@ -194,8 +196,8 @@ class _AddTodoBodyState extends State<_AddTodoBody> {
                                             ),
                                             borderRadius: BorderRadius.circular(10),
                                           ),
-                                          title: 'Date',
-                                          hintText: 'Date',
+                                          title: AppLocalizations.of(context)!.date,
+                                          hintText: AppLocalizations.of(context)!.date,
                                           cursorColor: AppColors.todoPurple,
                                           suffixIcon: Icon(Icons.date_range, color: AppColors.todoPurple,),
                                           onTapSuffixIcon: () async {
@@ -244,8 +246,8 @@ class _AddTodoBodyState extends State<_AddTodoBody> {
                                             ),
                                             borderRadius: BorderRadius.circular(10),
                                           ),
-                                          title: 'Time',
-                                          hintText: 'Time',
+                                          title: AppLocalizations.of(context)!.time,
+                                          hintText: AppLocalizations.of(context)!.time,
                                           cursorColor: AppColors.todoPurple,
                                           suffixIcon: Icon(Icons.access_time_rounded, color: AppColors.todoPurple,),
                                           onTapSuffixIcon: () async {
@@ -297,8 +299,8 @@ class _AddTodoBodyState extends State<_AddTodoBody> {
                                       ),
                                       borderRadius: BorderRadius.circular(10),
                                     ),
-                                    title: 'Notes',
-                                    hintText: 'Notes',
+                                    title: AppLocalizations.of(context)!.notes,
+                                    hintText: AppLocalizations.of(context)!.notes,
                                     cursorColor: AppColors.todoPurple,
                                     minLines: 6,
                                     maxLines: 6,
@@ -312,7 +314,7 @@ class _AddTodoBodyState extends State<_AddTodoBody> {
                           child: BaseButton(
                             margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                             backgroundColor: AppColors.todoPurple,
-                            title: 'Save',
+                            title: AppLocalizations.of(context)!.save,
                             borderRadius: 50,
                             height: 55,
                             onTap: () {
@@ -327,7 +329,7 @@ class _AddTodoBodyState extends State<_AddTodoBody> {
                                   context.read<TodoCubit>().addTodo(model);
                                 }
                               } else {
-                                ExceptionHandler.showErrorSnackBar('Vui lòng nhập đủ các trường');
+                                ExceptionHandler.showErrorSnackBar(AppLocalizations.of(context)!.please_fill_in_all_fields);
                               }
                             },
                           ),

@@ -3,6 +3,7 @@ import 'package:flutter_training/main.dart';
 import 'package:flutter_training/res/colors.dart';
 import 'package:flutter_training/ui/widget/base_button.dart';
 import 'package:flutter_training/ui/widget/base_text_label.dart';
+import 'package:flutter_training/util/localization_service.dart';
 
 class BaseDialog {
   static void showNotifyDialog({
@@ -57,7 +58,7 @@ class BaseDialog {
                       Expanded(
                         child: BaseButton(
                           backgroundColor: Colors.grey[200],
-                          title: 'Cancel',
+                          title: LocalizationService.current.cancel,
                           titleColor: AppColors.black,
                           borderRadius: 20,
                           onTap: () => Navigator.pop(context),

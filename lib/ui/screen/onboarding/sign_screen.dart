@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_training/gen/assets.gen.dart';
+import 'package:flutter_training/gen_l10n/app_localizations.dart';
 import 'package:flutter_training/res/colors.dart';
 import 'package:flutter_training/ui/widget/base_button.dart';
 import 'package:flutter_training/ui/widget/base_screen.dart';
@@ -81,7 +82,7 @@ class _SignScreenState extends State<SignScreen> {
           Column(
             children: [
               BaseTextLabel(
-                'Login here',
+                AppLocalizations.of(context)!.login_here,
                 color: AppColors.ff1f41bb,
                 fontSize: 30,
                 fontWeight: FontWeight.bold,
@@ -89,14 +90,14 @@ class _SignScreenState extends State<SignScreen> {
               ),
               const SizedBox(height: 20),
               BaseTextLabel(
-                'Welcome back you’ve been missed!',
+                AppLocalizations.of(context)!.welcome_back,
                 fontSize: 20,
                 fontWeight: FontWeight.w500,
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 50),
               BaseTextInput(
-                hintText: "Email",
+                hintText: AppLocalizations.of(context)!.email,
                 colorBgTextField: AppColors.fff1f4ff,
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
@@ -115,7 +116,7 @@ class _SignScreenState extends State<SignScreen> {
               ),
               const SizedBox(height: 20),
               BaseTextInput(
-                hintText: "Password",
+                hintText: AppLocalizations.of(context)!.password,
                 colorBgTextField: AppColors.fff1f4ff,
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
@@ -142,7 +143,7 @@ class _SignScreenState extends State<SignScreen> {
 
                     },
                     child: BaseTextLabel(
-                      'Forgot your password?',
+                      AppLocalizations.of(context)!.forgot_password,
                       fontWeight: FontWeight.w500,
                       color: AppColors.ff1f41bb,
                     ),
@@ -151,7 +152,7 @@ class _SignScreenState extends State<SignScreen> {
               ),
               const SizedBox(height: 20),
               BaseButton(
-                title: 'Sign in',
+                title: AppLocalizations.of(context)!.sign_in,
                 titleSize: 20,
                 height: 60,
                 titleWeight: FontWeight.bold,
@@ -168,7 +169,7 @@ class _SignScreenState extends State<SignScreen> {
                     });
                   },
                   child: BaseTextLabel(
-                    'Create new account',
+                    AppLocalizations.of(context)!.create_new_account,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -190,7 +191,7 @@ class _SignScreenState extends State<SignScreen> {
           Column(
             children: [
               BaseTextLabel(
-                'Create Account',
+                AppLocalizations.of(context)!.create_account,
                 color: AppColors.ff1f41bb,
                 fontSize: 30,
                 fontWeight: FontWeight.bold,
@@ -198,13 +199,13 @@ class _SignScreenState extends State<SignScreen> {
               ),
               const SizedBox(height: 20),
               BaseTextLabel(
-                'Create an account so you can explore all the existing jobs',
+                AppLocalizations.of(context)!.create_account_explore,
                 fontWeight: FontWeight.w500,
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 50),
               BaseTextInput(
-                hintText: "Email",
+                hintText: AppLocalizations.of(context)!.email,
                 colorBgTextField: AppColors.fff1f4ff,
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
@@ -223,7 +224,7 @@ class _SignScreenState extends State<SignScreen> {
               ),
               const SizedBox(height: 20),
               BaseTextInput(
-                hintText: "Password",
+                hintText: AppLocalizations.of(context)!.password,
                 colorBgTextField: AppColors.fff1f4ff,
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
@@ -242,7 +243,7 @@ class _SignScreenState extends State<SignScreen> {
               ),
               const SizedBox(height: 20),
               BaseTextInput(
-                hintText: "Confirm Password",
+                hintText: AppLocalizations.of(context)!.confirm_password,
                 colorBgTextField: AppColors.fff1f4ff,
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
@@ -261,7 +262,7 @@ class _SignScreenState extends State<SignScreen> {
               ),
               const SizedBox(height: 40),
               BaseButton(
-                title: 'Sign up',
+                title: AppLocalizations.of(context)!.sign_up,
                 titleSize: 20,
                 height: 60,
                 titleWeight: FontWeight.bold,
@@ -278,7 +279,7 @@ class _SignScreenState extends State<SignScreen> {
                     });
                   },
                   child: BaseTextLabel(
-                    'Already have an account',
+                    AppLocalizations.of(context)!.already_account,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -294,7 +295,7 @@ class _SignScreenState extends State<SignScreen> {
     return Column(
       children: [
         BaseTextLabel(
-          'Or continue with',
+          AppLocalizations.of(context)!.or_continue,
           fontWeight: FontWeight.w500,
           color: AppColors.ff1f41bb,
         ),
