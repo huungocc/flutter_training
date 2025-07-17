@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_training/screen/digit_clock_screen.dart';
-import 'package:flutter_training/screen/main_screen.dart';
-import 'package:flutter_training/screen/movie/model/movie_model.dart';
-import 'package:flutter_training/screen/movie/view/detail_movie_screen.dart';
-import 'package:flutter_training/screen/movie/view/list_movie_screen.dart';
-import 'package:flutter_training/screen/onboarding/on_boarding_screen.dart';
-import 'package:flutter_training/screen/onboarding/sign_screen.dart';
-import 'package:flutter_training/screen/todo/view/todo_screen.dart';
+import 'package:flutter_training/ui/screen/digit_clock_screen.dart';
+import 'package:flutter_training/ui/screen/main_screen.dart';
+import 'package:flutter_training/ui/screen/movie/model/movie_model.dart';
+import 'package:flutter_training/ui/screen/movie/view/detail_movie_screen.dart';
+import 'package:flutter_training/ui/screen/movie/view/list_movie_screen.dart';
+import 'package:flutter_training/ui/screen/onboarding/on_boarding_screen.dart';
+import 'package:flutter_training/ui/screen/onboarding/sign_screen.dart';
+import 'package:flutter_training/ui/screen/todo/view/todo_screen.dart';
 import 'package:page_transition/page_transition.dart';
-import 'enums.dart';
+import 'constant.dart';
 
 class Routes {
   Routes._();

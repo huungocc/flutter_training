@@ -4,7 +4,7 @@ import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_training/main.dart';
 import 'package:flutter_training/res/colors.dart';
-import 'package:flutter_training/widget/base_text_label.dart';
+import 'package:flutter_training/ui/widget/base_text_label.dart';
 
 class InAppNotificationData {
   final String id;
