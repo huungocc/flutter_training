@@ -14,7 +14,7 @@ class NotificationService {
       iOS: iosInit,
     );
 
-    await _notifications.initialize(initSettings);
+    await _notifications.initialize(initSettings,);
 
     tz.initializeTimeZones();
   }
@@ -47,5 +47,9 @@ class NotificationService {
 
   static Future<void> cancelNotification(int id) async {
     await _notifications.cancel(id);
+  }
+
+  static Future<void> cancelAllScheduledNotifications() async {
+    await _notifications.cancelAll();
   }
 }

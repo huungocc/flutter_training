@@ -2,8 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_training/main.dart';
 import 'package:flutter_training/util/localization_service.dart';
+import 'package:flutter_training/widget/base_text_label.dart';
 
-import '../ui/widget/base_text_label.dart';
 
 class ExceptionHandler {
   static bool _isShowingSnackBar = false;
