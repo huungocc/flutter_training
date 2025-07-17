@@ -9,6 +9,8 @@ import 'package:flutter_training/util/localization_service.dart';
 class TodoCubit extends Cubit<TodoState> {
   TodoCubit() : super(TodoInitial());
 
+  final TodoService todoService = TodoService();
+
   final List<TodoModel> _todos = [];
 
   List<TodoModel> get todos => _todos;
@@ -16,14 +18,14 @@ class TodoCubit extends Cubit<TodoState> {
   Future<void> loadTodos() async {
     emit(TodoLoading());
     try {
-      final todos = await TodoService.fetchTodos(completed: false);
-      final completed = await TodoService.fetchTodos(completed: true);
+      final todos = await todoService.fetchTodos(completed: false);
+      final completed = await todoService.fetchTodos(completed: true);
 
-      await TodoService.cancelAllScheduledNotifications();
-      TodoService.cancelAllInAppNotifications();
+      await todoService.cancelAllScheduledNotifications();
+      todoService.cancelAllInAppNotifications();
       for (final todo in todos) {
-        await TodoService.scheduleTodoNotification(todo);
-        TodoService.scheduleInAppNotification(todo);
+        await todoService.scheduleTodoNotification(todo);
+        todoService.scheduleInAppNotification(todo);
         print('Scheduled: ${todo.taskTitle}');
       }
 
@@ -37,7 +39,7 @@ class TodoCubit extends Cubit<TodoState> {
   Future<void> addTodo(TodoModel todo) async {
     emit(TodoLoading());
     try {
-      await TodoService.addTodo(todo);
+      await todoService.addTodo(todo);
       emit(TodoOperationSuccess(LocalizationService.current.todo_add_success));
     } catch (e) {
       ExceptionHandler.showErrorSnackBar('$e');
@@ -48,7 +50,7 @@ class TodoCubit extends Cubit<TodoState> {
   Future<void> updateTodo(TodoModel todo) async {
     emit(TodoLoading());
     try {
-      await TodoService.updateTodo(todo);
+      await todoService.updateTodo(todo);
       emit(TodoOperationSuccess(LocalizationService.current.todo_update_success));
     } catch (e) {
       ExceptionHandler.showErrorSnackBar('$e');
@@ -59,7 +61,7 @@ class TodoCubit extends Cubit<TodoState> {
   Future<void> updateTodoStatus(TodoModel todo, bool completed) async {
     emit(TodoLoading());
     try {
-      await TodoService.updateTodoStatus(todo.id!, completed);
+      await todoService.updateTodoStatus(todo.id!, completed);
       emit(TodoOperationSuccess(LocalizationService.current.todo_update_status_success));
     } catch (e) {
       ExceptionHandler.showErrorSnackBar('$e');
@@ -70,9 +72,9 @@ class TodoCubit extends Cubit<TodoState> {
   Future<void> deleteTodo(TodoModel todo) async {
     //emit(TodoLoading());
     try {
-      await TodoService.deleteTodo(todo.id!);
-      await TodoService.cancelTodoNotification(todo);
-      TodoService.cancelInAppNotification(todo);
+      await todoService.deleteTodo(todo.id!);
+      await todoService.cancelTodoNotification(todo);
+      todoService.cancelInAppNotification(todo);
       print('cancelTodoNotification: ${todo.taskTitle}');
       //emit(TodoOperationSuccess('Xoá thành công'));
       ExceptionHandler.showSuccessSnackBar(LocalizationService.current.todo_delete_success);
