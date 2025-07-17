@@ -4,6 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_training/gen_l10n/app_localizations.dart';
 import 'package:flutter_training/util/language_cubit.dart';
 import 'package:flutter_training/util/localization_service.dart';
+import 'package:flutter_training/util/notification_service.dart';
 import 'package:flutter_training/util/supabase_config.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -13,6 +14,7 @@ void main() async {
   await dotenv.load(fileName: ".env");
   await SupabaseConfig.init();
   WidgetsFlutterBinding.ensureInitialized();
+  await NotificationService.init();
   runApp(
     BlocProvider(
       create: (_) => LanguageCubit(),
