@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_training/main.dart';
@@ -68,6 +71,37 @@ class ExceptionHandler {
       return loc.syntax_error_unimplemented;
     } else if (error is AssertionError) {
       return loc.syntax_error_assertion(error.message ?? '');
+    } else {
+      return loc.error_unknown(error.toString());
+    }
+  }
+
+  static String handleHttpError(dynamic error) {
+    final loc = LocalizationService.current;
+
+    if (error is SocketException) {
+      return loc.error_no_connection;
+    } else if (error is HttpException) {
+      final message = error.message;
+      if (message.contains('400')) {
+        return loc.error_400;
+      } else if (message.contains('401')) {
+        return loc.error_401;
+      } else if (message.contains('403')) {
+        return loc.error_403;
+      } else if (message.contains('404')) {
+        return loc.error_404;
+      } else if (message.contains('500')) {
+        return loc.error_500;
+      } else if (message.contains('502')) {
+        return loc.error_502;
+      } else if (message.contains('503')) {
+        return loc.error_503;
+      } else {
+        return loc.error_unknown_server(message);
+      }
+    } else if (error is TimeoutException) {
+      return loc.error_connection_timeout;
     } else {
       return loc.error_unknown(error.toString());
     }

@@ -4,11 +4,12 @@ import 'package:flutter_training/util/device_info_util.dart';
 import 'package:flutter_training/util/in_app_notication_service.dart';
 import 'package:flutter_training/util/localization_service.dart';
 import 'package:flutter_training/util/notification_service.dart';
+import 'package:flutter_training/util/routes.dart';
 import 'package:flutter_training/util/shared_preference.dart';
 import 'package:flutter_training/util/supabase_config.dart';
 
 class TodoService {
-  static Future<String> _getDeviceId() async {
+  Future<String> _getDeviceId() async {
     var deviceUDID = await SharedPreferenceUtil.getDeviceUDID();
     if (deviceUDID != null) return deviceUDID;
     deviceUDID = await DeviceInfoUtil.getDeviceId();
@@ -16,7 +17,7 @@ class TodoService {
     return deviceUDID;
   }
 
-  static Future<void> addTodo(TodoModel model) async {
+  Future<void> addTodo(TodoModel model) async {
     try {
       final deviceId = await _getDeviceId();
 
@@ -33,7 +34,7 @@ class TodoService {
     }
   }
 
-  static Future<List<TodoModel>> fetchTodos({required bool completed}) async {
+  Future<List<TodoModel>> fetchTodos({required bool completed}) async {
     try {
       final deviceId = await _getDeviceId();
 
@@ -55,7 +56,7 @@ class TodoService {
     }
   }
 
-  static Future<void> updateTodo(TodoModel model) async {
+  Future<void> updateTodo(TodoModel model) async {
     if (model.id == null) {
       print('[updateTodo] ID is null — skipping update');
       return;
@@ -78,7 +79,7 @@ class TodoService {
     }
   }
 
-  static Future<void> updateTodoStatus(String id, bool completed) async {
+  Future<void> updateTodoStatus(String id, bool completed) async {
     try {
       print('[updateTodoStatus] id=$id, completed=$completed');
 
@@ -94,7 +95,7 @@ class TodoService {
     }
   }
 
-  static Future<void> deleteTodo(String id) async {
+  Future<void> deleteTodo(String id) async {
     try {
       print('[deleteTodo] Deleting id=$id');
 
@@ -110,7 +111,7 @@ class TodoService {
     }
   }
 
-  static Future<void> scheduleTodoNotification(TodoModel todo) async {
+  Future<void> scheduleTodoNotification(TodoModel todo) async {
     if (todo.date == null || todo.time == null) return;
 
     final timeParts = todo.time!.split(":");
@@ -131,29 +132,30 @@ class TodoService {
     );
   }
 
-  static Future<void> cancelTodoNotification(TodoModel todo) async {
+  Future<void> cancelTodoNotification(TodoModel todo) async {
     await NotificationService.cancelNotification(todo.id.hashCode);
   }
 
-  static Future<void> cancelAllScheduledNotifications() async {
+  Future<void> cancelAllScheduledNotifications() async {
     await NotificationService.cancelAllScheduledNotifications();
   }
 
-  static void scheduleInAppNotification(TodoModel todo) {
+  void scheduleInAppNotification(TodoModel todo) {
     final data = InAppNotificationData(
       id: todo.id!,
       title: LocalizationService.current.todo,
       message: todo.taskTitle ?? 'N/A',
       time: Common.parseTodoTimeToday(todo.time!),
+      route: Routes.todoScreen
     );
     InAppNotificationService.scheduleInAppNotification(data);
   }
 
-  static void cancelInAppNotification(TodoModel todo) {
+  void cancelInAppNotification(TodoModel todo) {
     InAppNotificationService.cancel(todo.id!);
   }
 
-  static void cancelAllInAppNotifications() {
+  void cancelAllInAppNotifications() {
     InAppNotificationService.cancelAll();
   }
 }

@@ -45,7 +45,7 @@ class InAppNotificationService {
     final context = NavigationService.navigatorKey.currentContext;
     if (context != null) {
       Flushbar(
-        icon: const Icon(Icons.alarm_on_rounded, color: AppColors.white, size: 40),
+        icon: const Icon(Icons.alarm_on_rounded, color: AppColors.white, size: 30),
         titleText: BaseTextLabel(
           data.title,
           fontSize: 16,
