@@ -8,6 +8,7 @@ class AppColors {
   static const Color gray = Color(0xFF75818F);
   static const Color base_color = Color(0xFF0085FF);
   static const Color colorError = Color(0xFFFF0000);
+  static const Color colorSubError = Color(0xFFFF8080);
 
   static const Color disable = Color(0xffE6E8EB);
   static const Color focusBorder = Color(0xFF71ADE7);

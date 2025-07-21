@@ -5,21 +5,23 @@ import 'package:flutter_training/ui/widget/custom/custom_widget.dart';
 import 'package:flutter_training/util/constant.dart';
 
 class TodoInfoCard extends StatelessWidget {
-  final BorderRadiusGeometry? borderRadiusGeometry;
+  final double? borderRadius;
   final String? title;
   final String? time;
   final String? type;
   final bool isCompleted;
+  final bool isExpired;
   final Function? onCheck;
   final VoidCallback? onTap;
 
   const TodoInfoCard({
     super.key,
-    this.borderRadiusGeometry,
+    this.borderRadius,
     this.title,
     this.time,
     this.type,
     this.isCompleted = false,
+    this.isExpired = false,
     this.onTap,
     this.onCheck,
   });
@@ -40,7 +42,7 @@ class TodoInfoCard extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: AppColors.white,
-          borderRadius: borderRadiusGeometry ?? BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(borderRadius ?? 0)
         ),
         padding: EdgeInsets.symmetric(horizontal: 18, vertical: 14),
         child: Row(
@@ -60,6 +62,7 @@ class TodoInfoCard extends StatelessWidget {
                             BaseTextLabel(
                               title,
                               fontSize: 16,
+                              color: isExpired ? AppColors.colorError : AppColors.black,
                               fontWeight: FontWeight.w600,
                               maxLines: 1,
                               decoration: isCompleted
@@ -69,7 +72,7 @@ class TodoInfoCard extends StatelessWidget {
                             BaseTextLabel(
                               time,
                               fontSize: 16,
-                              color: AppColors.gray,
+                              color: isExpired ? AppColors.colorSubError : AppColors.gray,
                               fontWeight: FontWeight.w500,
                               maxLines: 1,
                               decoration: isCompleted
