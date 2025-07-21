@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_training/gen_l10n/app_localizations.dart';
 import 'package:flutter_training/res/colors.dart';
+import 'package:flutter_training/ui/screen/todo/model/todo_model.dart';
 import 'package:flutter_training/ui/screen/todo/view/add_todo_screen.dart';
 import 'package:flutter_training/ui/screen/todo/view_model/todo_cubit.dart';
 import 'package:flutter_training/ui/screen/todo/view_model/todo_state.dart';
@@ -40,6 +41,32 @@ class _TodoBodyState extends State<_TodoBody> {
 
   void getData() {
     context.read<TodoCubit>().loadTodos();
+  }
+
+  void doneTask(TodoModel model) {
+    BaseDialog.showNotifyDialog(
+      message: AppLocalizations.of(context)!.complete_task,
+      onConfirm: () {
+        context
+            .read<TodoCubit>()
+            .updateTodoStatus(model, true);
+      },
+    );
+  }
+
+  void undoneTask(TodoModel model) {
+    BaseDialog.showNotifyDialog(
+      message:
+      AppLocalizations.of(context)!.cancel_complete_task,
+      onConfirm: () {
+        context
+            .read<TodoCubit>()
+            .updateTodoStatus(
+          model,
+          false,
+        );
+      },
+    );
   }
 
   @override
@@ -143,83 +170,65 @@ class _TodoBodyState extends State<_TodoBody> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 15),
                       child: (todos.isNotEmpty)
-                          ? ListView.separated(
-                              shrinkWrap: true,
-                              physics: NeverScrollableScrollPhysics(),
-                              itemCount: todos.length,
-                              separatorBuilder: (context, index) => Container(
-                                color: AppColors.todoBackground,
-                                height: 1,
-                              ),
-                              itemBuilder: (context, index) {
-                                final todo = todos[index];
-
-                                final isFirst = index == 0;
-                                final isLast = index == todos.length - 1;
-
-                                final borderRadius = BorderRadius.vertical(
-                                  top: isFirst
-                                      ? const Radius.circular(20)
-                                      : Radius.zero,
-                                  bottom: isLast
-                                      ? const Radius.circular(20)
-                                      : Radius.zero,
-                                );
-
-                                return Dismissible(
-                                  direction: DismissDirection.endToStart,
-                                  background: Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
+                          ? ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: ListView.separated(
+                                shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
+                                itemCount: todos.length,
+                                separatorBuilder: (context, index) => Container(
+                                  color: AppColors.todoBackground,
+                                  height: 1,
+                                ),
+                                itemBuilder: (context, index) {
+                                  final todo = todos[index];
+                                  final isExpired = Common.isDateTimeExpired(todo.date!, todo.time!);
+                                  return Dismissible(
+                                    direction: DismissDirection.endToStart,
+                                    background: Container(
                                       color: Colors.red,
+                                      alignment: Alignment.centerRight,
+                                      padding: EdgeInsets.symmetric(horizontal: 20),
+                                      child: Icon(Icons.delete, color: Colors.white),
                                     ),
-                                    alignment: Alignment.centerRight,
-                                    padding: EdgeInsets.symmetric(horizontal: 20),
-                                    child: Icon(Icons.delete, color: Colors.white),
-                                  ),
-                                  onDismissed: (direction) {
-                                    setState(() {
-                                      todos.removeAt(index);
-                                    });
-                                    context.read<TodoCubit>().deleteTodo(todo);
-                                  },
-                                  key: Key(todos[index].id!),
-                                  child: TodoInfoCard(
-                                    borderRadiusGeometry: borderRadius,
-                                    title: todo.taskTitle,
-                                    type: todo.category,
-                                    time: Common.convertTime24to12(todo.time!),
-                                    onTap: () async {
-                                      final isSuccess =
-                                          await showModalBottomSheet<bool>(
-                                            context: context,
-                                            isScrollControlled: true,
-                                            backgroundColor: Colors.transparent,
-                                            builder: (BuildContext context) {
-                                              return AddTodoScreen(arg: todo);
-                                            },
-                                          );
-                                      if (!context.mounted) return;
+                                    onDismissed: (direction) {
+                                      setState(() {
+                                        todos.removeAt(index);
+                                      });
+                                      context.read<TodoCubit>().deleteTodo(todo);
+                                    },
+                                    key: Key(todos[index].id!),
+                                    child: TodoInfoCard(
+                                      title: todo.taskTitle,
+                                      type: todo.category,
+                                      time: Common.convertTime24to12(todo.time!),
+                                      isExpired: isExpired,
+                                      onTap: () async {
+                                        final isSuccess =
+                                            await showModalBottomSheet<bool>(
+                                              context: context,
+                                              isScrollControlled: true,
+                                              backgroundColor: Colors.transparent,
+                                              builder: (BuildContext context) {
+                                                return AddTodoScreen(arg: todo);
+                                              },
+                                            );
+                                        if (!context.mounted) return;
 
-                                      if (isSuccess == true) {
-                                        getData();
-                                      }
-                                    },
-                                    onCheck: () {
-                                      BaseDialog.showNotifyDialog(
-                                        message: AppLocalizations.of(context)!.complete_task,
-                                        onConfirm: () {
-                                          context
-                                              .read<TodoCubit>()
-                                              .updateTodoStatus(todo, true);
-                                        },
-                                      );
-                                    },
-                                  ),
-                                );
-                              },
-                            )
+                                        if (isSuccess == true) {
+                                          getData();
+                                        }
+                                      },
+                                      onCheck: () {
+                                        doneTask(todo);
+                                      },
+                                    ),
+                                  );
+                                },
+                              ),
+                          )
                           : TodoInfoCard(
+                              borderRadius: 20,
                               title: AppLocalizations.of(context)!.no_data_yet,
                               time: 'N/A',
                             ),
@@ -238,53 +247,32 @@ class _TodoBodyState extends State<_TodoBody> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 15),
                       child: (completed.isNotEmpty)
-                          ? ListView.separated(
-                              shrinkWrap: true,
-                              physics: NeverScrollableScrollPhysics(),
-                              itemCount: completed.length,
-                              separatorBuilder: (context, index) => Container(
-                                color: AppColors.todoBackground,
-                                height: 1,
+                          ? ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: ListView.separated(
+                                shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
+                                itemCount: completed.length,
+                                separatorBuilder: (context, index) => Container(
+                                  color: AppColors.todoBackground,
+                                  height: 1,
+                                ),
+                                itemBuilder: (context, index) {
+                                  final complete = completed[index];
+                                  return TodoInfoCard(
+                                    title: complete.taskTitle,
+                                    time: Common.convertTime24to12(complete.time!),
+                                    type: complete.category,
+                                    isCompleted: true,
+                                    onCheck: () {
+                                      undoneTask(complete);
+                                    },
+                                  );
+                                },
                               ),
-                              itemBuilder: (context, index) {
-                                final complete = completed[index];
-
-                                final isFirst = index == 0;
-                                final isLast = index == completed.length - 1;
-
-                                final borderRadius = BorderRadius.vertical(
-                                  top: isFirst
-                                      ? const Radius.circular(20)
-                                      : Radius.zero,
-                                  bottom: isLast
-                                      ? const Radius.circular(20)
-                                      : Radius.zero,
-                                );
-
-                                return TodoInfoCard(
-                                  borderRadiusGeometry: borderRadius,
-                                  title: complete.taskTitle,
-                                  time: Common.convertTime24to12(complete.time!),
-                                  type: complete.category,
-                                  isCompleted: true,
-                                  onCheck: () {
-                                    BaseDialog.showNotifyDialog(
-                                      message:
-                                      AppLocalizations.of(context)!.cancel_complete_task,
-                                      onConfirm: () {
-                                        context
-                                            .read<TodoCubit>()
-                                            .updateTodoStatus(
-                                              complete,
-                                              false,
-                                            );
-                                      },
-                                    );
-                                  },
-                                );
-                              },
-                            )
+                          )
                           : TodoInfoCard(
+                              borderRadius: 20,
                               title: AppLocalizations.of(context)!.no_data_yet,
                               time: 'N/A',
                               isCompleted: true,

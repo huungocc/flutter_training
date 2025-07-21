@@ -42,4 +42,22 @@ class Common {
     final dateTime = DateTime(now.year, now.month, now.day, hour, minute);
     return DateFormat('hh:mm a').format(dateTime);
   }
+
+  static bool isDateTimeExpired(DateTime date, String time) {
+    final parts = time.split(':');
+    final hour = int.parse(parts[0]);
+    final minute = int.parse(parts[1]);
+    final second = int.parse(parts[2]);
+
+    final targetDateTime = DateTime(
+      date.year,
+      date.month,
+      date.day,
+      hour,
+      minute,
+      second,
+    );
+
+    return DateTime.now().isAfter(targetDateTime);
+  }
 }
