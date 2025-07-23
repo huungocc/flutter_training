@@ -42,6 +42,15 @@ class MainScreen extends StatelessWidget {
                 },
               ),
               BaseButton(
+                title: AppLocalizations.of(context)!.simple_movie,
+                titleColor: AppColors.white,
+                backgroundColor: AppColors.black,
+                borderRadius: 20,
+                onTap: () {
+                  Navigator.pushNamed(context, Routes.simpleListMovieScreen);
+                },
+              ),
+              BaseButton(
                 title: AppLocalizations.of(context)!.movie,
                 titleColor: AppColors.white,
                 backgroundColor: AppColors.black,

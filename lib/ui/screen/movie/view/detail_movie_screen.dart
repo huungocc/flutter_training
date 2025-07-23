@@ -137,7 +137,9 @@ class DetailMovieScreen extends StatelessWidget {
                 ),
                 CustomWidget.infoItem(
                   MovieIconType.ticket,
-                  arg?.genres?.first.name ?? 'N/A',
+                  (arg?.genres?.isNotEmpty == true)
+                      ? arg!.genres!.first.name ?? 'N/A'
+                      : 'N/A'
                 ),
               ],
             ),

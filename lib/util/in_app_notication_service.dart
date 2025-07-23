@@ -42,7 +42,7 @@ class InAppNotificationService {
   }
 
   static void _show(InAppNotificationData data) {
-    final context = NavigationService.navigatorKey.currentContext;
+    final context = NavigationService.context;
     if (context != null) {
       Flushbar(
         icon: const Icon(Icons.alarm_on_rounded, color: AppColors.white, size: 30),

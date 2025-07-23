@@ -5,8 +5,8 @@ import 'package:flutter_training/gen_l10n/app_localizations.dart';
 import 'package:flutter_training/network/exception_handler.dart';
 import 'package:flutter_training/res/colors.dart';
 import 'package:flutter_training/ui/screen/todo/model/todo_model.dart';
-import 'package:flutter_training/ui/screen/todo/view_model/todo_cubit.dart';
-import 'package:flutter_training/ui/screen/todo/view_model/todo_state.dart';
+import 'package:flutter_training/ui/screen/todo/cubit/todo_cubit.dart';
+import 'package:flutter_training/ui/screen/todo/cubit/todo_state.dart';
 import 'package:flutter_training/ui/widget/base_button.dart';
 import 'package:flutter_training/ui/widget/base_text_input.dart';
 import 'package:flutter_training/ui/widget/base_text_label.dart';
@@ -139,7 +139,6 @@ class _AddTodoBodyState extends State<_AddTodoBody> {
                               vertical: 10,
                             ),
                             backgroundColor: AppColors.todoPurple,
-                            title: AppLocalizations.of(context)!.save,
                             borderRadius: 50,
                             height: 55,
                             onTap: () {
@@ -148,8 +147,13 @@ class _AddTodoBodyState extends State<_AddTodoBody> {
                                   _keyTime.text.isNotEmpty &&
                                   _keyNotes.text.isNotEmpty) {
                                 model.taskTitle = _keyTaskTitle.text;
-                                model.date = Common.parseDateFromDDMMYYYY(_keyDate.text);
-                                model.time = Common.convertTime12hTo24hWithSeconds(_keyTime.text);
+                                model.date = Common.parseDateFromDDMMYYYY(
+                                  _keyDate.text,
+                                );
+                                model.time =
+                                    Common.convertTime12hTo24hWithSeconds(
+                                      _keyTime.text,
+                                    );
                                 model.notes = _keyNotes.text;
                                 model.category ??= TodoIconType.list.name;
                                 if (isUpdate) {
@@ -165,20 +169,22 @@ class _AddTodoBodyState extends State<_AddTodoBody> {
                                 );
                               }
                             },
+                            child: (state is TodoLoading)
+                                ? SpinKitCircle(
+                                    size: 30,
+                                    color: AppColors.white,
+                                  )
+                                : BaseTextLabel(
+                                    AppLocalizations.of(context)!.save,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 16,
+                                    color: AppColors.white,
+                                    textAlign: TextAlign.center,
+                                  ),
                           ),
                         ),
                       ],
                     ),
-                    if (state is TodoLoading)
-                      Container(
-                        color: Colors.black.withOpacity(0.7),
-                        child: Center(
-                          child: SpinKitCircle(
-                            size: 50,
-                            color: AppColors.white,
-                          ),
-                        ),
-                      ),
                   ],
                 );
               },
@@ -288,7 +294,9 @@ class _AddTodoBodyState extends State<_AddTodoBody> {
                           },
                         );
                         if (pickedDate != null) {
-                          _keyDate.text = Common.formatDateToDDMMYYYY(pickedDate);
+                          _keyDate.text = Common.formatDateToDDMMYYYY(
+                            pickedDate,
+                          );
                         }
                       },
                     ),
@@ -338,7 +346,10 @@ class _AddTodoBodyState extends State<_AddTodoBody> {
                           },
                         );
                         if (pickedTime != null) {
-                          _keyTime.text = Common.formatPickedTimeTo12h(pickedTime.hour, pickedTime.minute);
+                          _keyTime.text = Common.formatPickedTimeTo12h(
+                            pickedTime.hour,
+                            pickedTime.minute,
+                          );
                         }
                       },
                     ),

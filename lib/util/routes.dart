@@ -4,6 +4,8 @@ import 'package:flutter_training/ui/screen/main_screen.dart';
 import 'package:flutter_training/ui/screen/movie/model/movie_model.dart';
 import 'package:flutter_training/ui/screen/movie/view/detail_movie_screen.dart';
 import 'package:flutter_training/ui/screen/movie/view/list_movie_screen.dart';
+import 'package:flutter_training/ui/screen/movie/view/simple_detail_movie_screen.dart';
+import 'package:flutter_training/ui/screen/movie/view/simple_list_movie_screen.dart';
 import 'package:flutter_training/ui/screen/onboarding/on_boarding_screen.dart';
 import 'package:flutter_training/ui/screen/onboarding/sign_screen.dart';
 import 'package:flutter_training/ui/screen/todo/view/todo_screen.dart';
@@ -20,6 +22,8 @@ class Routes {
   static const String listMovieScreen = "/listMovieScreen";
   static const String detailMovieScreen = "/detailMovieScreen";
   static const String todoScreen = "/todoScreen";
+  static const String simpleListMovieScreen = "/simpleListMovieScreen";
+  static const String simpleDetailMovieScreen = "/simpleDetailMovieScreen";
 
   static String initScreen() => mainScreen;
 
@@ -71,6 +75,22 @@ class Routes {
       case todoScreen:
         return PageTransition(
           child: TodoScreen(),
+          type: PageTransitionType.rightToLeft,
+          isIos: true,
+        );
+      case simpleListMovieScreen:
+        return PageTransition(
+          child: SimpleListMovieScreen(),
+          type: PageTransitionType.rightToLeft,
+          isIos: true,
+        );
+      case simpleDetailMovieScreen:
+        int? arg;
+        if (settings.arguments is int) {
+          arg = settings.arguments as int;
+        }
+        return PageTransition(
+          child: SimpleDetailMovieScreen(arg: arg),
           type: PageTransitionType.rightToLeft,
           isIos: true,
         );
