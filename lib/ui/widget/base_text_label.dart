@@ -12,11 +12,7 @@ class BaseTextLabel extends StatelessWidget {
   final TextAlign textAlign;
   final int maxLines;
   final double? fontHeight;
-  final bool formatCurrency;
-  final bool isFormatPriceWithDecimal;
-  final String? fontFamily;
   final bool isRequired;
-  final LinearGradient? gradient;
 
   const BaseTextLabel(this.title,
       {super.key,
@@ -29,10 +25,7 @@ class BaseTextLabel extends StatelessWidget {
         this.textAlign = TextAlign.start,
         this.maxLines = 50,
         this.fontHeight,
-        this.fontFamily,
-        this.formatCurrency = false,
-        this.isFormatPriceWithDecimal = false,
-        this.isRequired = false, this.gradient});
+        this.isRequired = false});
 
   @override
   Widget build(BuildContext context) {
@@ -76,55 +69,11 @@ class BaseTextLabel extends StatelessWidget {
           fontStyle: fontStyle,
           decoration: decoration,
           decorationColor: decorationColor,
-          foreground: gradient != null
-              ? (Paint()..shader = gradient!.createShader(Rect.fromLTWH(0, 0, 200, 30)))
-              : null,
-          color: gradient == null ? color : null,
-        )
+          color: color,
+        ),
+      softWrap: true,
     );
 
-    return gradient != null
-        ? ShaderMask(
-      shaderCallback: (bounds) => gradient!.createShader(bounds),
-      child: textWidget,
-    )
-        : textWidget;
-  }
-
-  static renderBaseTitle({String? title, FontWeight? fontWeight, bool isRequired = false, Color? titleColor, LinearGradient? gradient}) {
-    return Container(
-      padding: EdgeInsets.only(bottom: 5),
-      child: BaseTextLabel(
-        title,
-        color: titleColor ?? Colors.black,
-        gradient: gradient,
-        fontSize: 14,
-        isRequired: isRequired,
-        fontWeight: fontWeight ?? FontWeight.w600,
-      ),
-    );
-  }
-}
-
-class ErrorTextWidget extends StatelessWidget {
-  final String? errorText;
-  final Color? errorTextColor;
-  final EdgeInsets? margin;
-
-  const ErrorTextWidget({super.key, this.errorText, this.errorTextColor, this.margin});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: margin ?? EdgeInsets.only(top: 6),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: BaseTextLabel(errorText, color: this.errorTextColor ?? Colors.red, fontSize: 14),
-          ),
-        ],
-      ),
-    );
+    return textWidget;
   }
 }
