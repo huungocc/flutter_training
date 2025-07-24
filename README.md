@@ -11,16 +11,19 @@
 ### 🎞️ Movie
 - `Danh sách phim`: Hiển thị danh sách phim từ API.
 - `Chi tiết phim`: Hiển thị nội dung chi tiết của phim khi chọn.
-<img src="assets/gifs/fl_movie.gif" width="300">
+<div style="display: flex; gap: 10px;">
+  <img src="assets/gifs/fl_movie_1.gif" width="300">
+  <img src="assets/gifs/fl_movie_2.gif" width="300">
+</div>
 
 ### 🎞️ Todo
 - `Danh sách Todo`: Hiển thị danh sách Todo (Đang làm, đã hoàn thành)
 - `Thêm/Sửa/Chi tiết Todo`: Thêm, sửa, xem chi tiết Todo
 - `Thông báo`: Thông báo ngoài/trong ứng dụng khi Todo đến giờ
 <div style="display: flex; gap: 10px;">
-  <img src="assets/gifs/fl_todo.gif" width="200">
-  <img src="assets/gifs/fl_local_notification.gif" width="200">
-  <img src="assets/gifs/fl_inapp_notification.gif" width="200">
+  <img src="assets/gifs/fl_todo.gif" width="250">
+  <img src="assets/gifs/fl_local_notification.gif" width="250">
+  <img src="assets/gifs/fl_inapp_notification.gif" width="250">
 </div>
 
 ### 📘 Localization

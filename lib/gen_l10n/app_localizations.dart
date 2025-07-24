@@ -116,6 +116,12 @@ abstract class AppLocalizations {
   /// **'Movie'**
   String get movie;
 
+  /// No description provided for @simple_movie.
+  ///
+  /// In en, this message translates to:
+  /// **'Simple Movie'**
+  String get simple_movie;
+
   /// No description provided for @todo.
   ///
   /// In en, this message translates to:

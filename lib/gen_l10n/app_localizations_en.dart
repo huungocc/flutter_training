@@ -18,6 +18,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get movie => 'Movie';
 
   @override
+  String get simple_movie => 'Simple Movie';
+
+  @override
   String get todo => 'Todo';
 
   @override

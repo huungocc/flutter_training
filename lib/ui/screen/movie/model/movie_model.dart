@@ -29,13 +29,15 @@ class MovieModel {
       json['genres'].forEach((v) {
         genres!.add(Genres.fromJson(v));
       });
+    } else {
+      genres = [Genres(id: 1, name: 'Action')];
     }
     id = json['id'];
     overview = json['overview'];
     posterPath = json['poster_path'];
     releaseDate = json['release_date'];
     revenue = json['revenue'];
-    runtime = json['runtime'];
+    runtime = json['runtime'] ?? 100;
     title = json['title'];
     voteAverage = json['vote_average'];
   }
