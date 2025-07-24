@@ -53,7 +53,9 @@ class MovieInfoCard extends StatelessWidget {
                 const SizedBox(height: 5),
                 CustomWidget.infoItem(
                   MovieIconType.ticket,
-                  movie?.genres?.first.name ?? 'N/A',
+                  (movie?.genres?.isNotEmpty == true)
+                      ? movie!.genres!.first.name ?? 'N/A'
+                      : 'N/A'
                 ),
                 const SizedBox(height: 5),
                 CustomWidget.infoItem(

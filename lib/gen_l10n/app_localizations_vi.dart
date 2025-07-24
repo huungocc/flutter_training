@@ -18,6 +18,9 @@ class AppLocalizationsVi extends AppLocalizations {
   String get movie => 'Phim';
 
   @override
+  String get simple_movie => 'Phim đơn giản';
+
+  @override
   String get todo => 'Việc cần làm';
 
   @override
